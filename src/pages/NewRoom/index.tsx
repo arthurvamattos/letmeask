@@ -1,8 +1,10 @@
 import { FormEvent, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 import illustrationImg from "../../assets/images/illustration.svg";
 import logoImg from "../../assets/images/logo.svg";
+import logoDarkModeImg from "../../assets/images/logo-dark-mode.svg";
 
 import { Button } from "../../components/Button";
 import { ToggleThemeButton } from "../../components/ToggleThemeButton";
@@ -11,17 +13,20 @@ import { database } from "../../services/firebase";
 import { useAuth } from "../../hooks/useAuth";
 
 import { Container, Aside, Main } from "./styles";
+import { useTheme } from "../../hooks/useTheme";
 
 export function NewRoom() {
   const [newRoom, setNewRoom] = useState("");
 
+  const { theme } = useTheme();
   const history = useHistory();
   const { user } = useAuth();
 
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
 
-    if (newRoom.trim() === "") {
+    if (newRoom.trim().length <= 3) {
+      toast.error("Digite um nome de sala válido");
       return;
     }
 
@@ -37,6 +42,7 @@ export function NewRoom() {
 
   return (
     <Container>
+      <Toaster />
       <Aside>
         <img
           src={illustrationImg}
@@ -48,7 +54,10 @@ export function NewRoom() {
       <Main>
         <div className="main-content">
           <ToggleThemeButton fixed />
-          <img src={logoImg} alt="Letmeask" />
+          <img
+            src={theme.title === "light" ? logoImg : logoDarkModeImg}
+            alt="Letmeask"
+          />
           <h2>Criar uma nova sala</h2>
           <form onSubmit={handleCreateRoom}>
             <input
