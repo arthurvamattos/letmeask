@@ -1,25 +1,28 @@
 import { useHistory, useParams } from "react-router-dom";
 
-import "../styles/room.scss";
-import logoImg from "../assets/images/logo.svg";
-import deleteImg from "../assets/images/delete.svg";
-import checkImg from "../assets/images/check.svg";
-import answerImg from "../assets/images/answer.svg";
+import logoImg from "../../assets/images/logo.svg";
+import logoDarkModeImg from "../../assets/images/logo-dark-mode.svg";
+import deleteImg from "../../assets/images/delete.svg";
+import checkImg from "../../assets/images/check.svg";
+import answerImg from "../../assets/images/answer.svg";
 
-import { Button } from "../components/Button";
-import { RoomCode } from "../components/RoomCode";
-import { Question } from "../components/Question";
+import { Button } from "../../components/Button";
+import { RoomCode } from "../../components/RoomCode";
+import { Question } from "../../components/Question";
+import { ToggleThemeButton } from "../../components/ToggleThemeButton";
 
-// import { useAuth } from "../hooks/useAuth";
-import { useRoom } from "../hooks/useRoom";
-import { database } from "../services/firebase";
+import { useRoom } from "../../hooks/useRoom";
+import { database } from "../../services/firebase";
+import { useTheme } from "../../hooks/useTheme";
+
+import { Container } from "./styles";
 
 type RoomParams = {
   id: string;
 };
 
 export function AdminRoom() {
-  // const { user } = useAuth();
+  const { theme } = useTheme();
 
   const history = useHistory();
 
@@ -55,16 +58,20 @@ export function AdminRoom() {
   }
 
   return (
-    <div id="page-room">
+    <Container>
       <header>
         <div className="content">
-          <img src={logoImg} alt="Letmeask" />
+          <img
+            src={theme.title === "light" ? logoImg : logoDarkModeImg}
+            alt="Letmeask"
+          />
 
           <div>
             <RoomCode code={roomId} />
             <Button isOutlined onClick={handleEndRoom}>
               Encerrar sala
             </Button>
+            <ToggleThemeButton />
           </div>
         </div>
       </header>
@@ -110,6 +117,6 @@ export function AdminRoom() {
           ))}
         </div>
       </main>
-    </div>
+    </Container>
   );
 }

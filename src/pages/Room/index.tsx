@@ -1,16 +1,20 @@
 import { FormEvent, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
-import "../styles/room.scss";
-import logoImg from "../assets/images/logo.svg";
+import logoImg from "../../assets/images/logo.svg";
+import logoDarkModeImg from "../../assets/images/logo-dark-mode.svg";
 
-import { Button } from "../components/Button";
-import { RoomCode } from "../components/RoomCode";
-import { Question } from "../components/Question";
+import { Button } from "../../components/Button";
+import { RoomCode } from "../../components/RoomCode";
+import { Question } from "../../components/Question";
+import { ToggleThemeButton } from "../../components/ToggleThemeButton";
 
-import { useAuth } from "../hooks/useAuth";
-import { database } from "../services/firebase";
-import { useRoom } from "../hooks/useRoom";
+import { useAuth } from "../../hooks/useAuth";
+import { database } from "../../services/firebase";
+import { useRoom } from "../../hooks/useRoom";
+
+import { Container } from "./styles";
+import { useTheme } from "../../hooks/useTheme";
 
 type RoomParams = {
   id: string;
@@ -19,6 +23,7 @@ type RoomParams = {
 export function Room() {
   const [newQuestion, setNewQuestion] = useState("");
   const { user } = useAuth();
+  const { theme } = useTheme();
 
   const params = useParams<RoomParams>();
   const roomId = params.id;
@@ -67,11 +72,19 @@ export function Room() {
   }
 
   return (
-    <div id="page-room">
+    <Container>
       <header>
         <div className="content">
-          <img src={logoImg} alt="Letmeask" />
-          <RoomCode code={roomId} />
+          <Link to="/">
+            <img
+              src={theme.title === "light" ? logoImg : logoDarkModeImg}
+              alt="Letmeask"
+            />
+          </Link>
+          <div>
+            <RoomCode code={roomId} />
+            <ToggleThemeButton />
+          </div>
         </div>
       </header>
 
@@ -145,6 +158,6 @@ export function Room() {
           ))}
         </div>
       </main>
-    </div>
+    </Container>
   );
 }

@@ -1,18 +1,25 @@
 import { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 
-import { Button } from "../components/Button";
-import { database } from "../services/firebase";
+import { useAuth } from "../../hooks/useAuth";
 
-import illustrationImg from "../assets/images/illustration.svg";
-import logoImg from "../assets/images/logo.svg";
-import googleIconImg from "../assets/images/google-icon.svg";
+import { Button } from "../../components/Button";
+import { ToggleThemeButton } from "../../components/ToggleThemeButton";
 
-import "../styles/auth.scss";
+import { database } from "../../services/firebase";
+
+import illustrationImg from "../../assets/images/illustration.svg";
+import logoImg from "../../assets/images/logo.svg";
+import logoDarkModeImg from "../../assets/images/logo-dark-mode.svg";
+import googleIconImg from "../../assets/images/google-icon.svg";
+
+import { Container, Aside, Main } from "./styles";
+import { useTheme } from "../../hooks/useTheme";
 
 export function Home() {
   const [roomCode, setRoomCode] = useState("");
+
+  const { theme } = useTheme();
 
   const history = useHistory();
   const { user, signInWithGoogle } = useAuth();
@@ -48,18 +55,22 @@ export function Home() {
   }
 
   return (
-    <div id="page-auth">
-      <aside>
+    <Container>
+      <Aside>
         <img
           src={illustrationImg}
           alt="Illustração simbolizando perguntas e respostas"
         />
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
         <p>Tire as dúvidas da sua audiência em tempo real</p>
-      </aside>
-      <main>
+      </Aside>
+      <Main>
         <div className="main-content">
-          <img src={logoImg} alt="Letmeask" />
+          <ToggleThemeButton fixed />
+          <img
+            src={theme.title === "light" ? logoImg : logoDarkModeImg}
+            alt="Letmeask"
+          />
           <button className="create-room" onClick={handleCreateRoom}>
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google
@@ -75,7 +86,7 @@ export function Home() {
             <Button type="submit">Entrar na sala</Button>
           </form>
         </div>
-      </main>
-    </div>
+      </Main>
+    </Container>
   );
 }
