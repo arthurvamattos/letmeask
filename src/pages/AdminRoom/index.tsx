@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import logoImg from "../../assets/images/logo.svg";
 import logoDarkModeImg from "../../assets/images/logo-dark-mode.svg";
@@ -93,10 +93,12 @@ export function AdminRoom() {
       </Modal>
       <header>
         <div className="content">
-          <img
-            src={theme.title === "light" ? logoImg : logoDarkModeImg}
-            alt="Letmeask"
-          />
+          <Link to="/">
+            <img
+              src={theme.title === "light" ? logoImg : logoDarkModeImg}
+              alt="Letmeask"
+            />
+          </Link>
 
           <div>
             <RoomCode code={roomId} />
