@@ -1,4 +1,4 @@
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import logoImg from "../../assets/images/logo.svg";
 import logoDarkModeImg from "../../assets/images/logo-dark-mode.svg";
@@ -15,8 +15,11 @@ import { useRoom } from "../../hooks/useRoom";
 import { database } from "../../services/firebase";
 import { useTheme } from "../../hooks/useTheme";
 
-import { Container } from "./styles";
+import { Container, Modal } from "./styles";
 import { NoQuestions } from "../../components/NoQuestions";
+import { useState } from "react";
+import { DeleteQuestionModalContent } from "../../components/DeleteQuestionModalContent";
+import { EndRoomModalContent } from "../../components/EndRoomModalContent";
 
 type RoomParams = {
   id: string;
@@ -25,25 +28,32 @@ type RoomParams = {
 export function AdminRoom() {
   const { theme } = useTheme();
 
-  const history = useHistory();
+  const [deleteQuestionModalIsOpen, setDeleteQuestionModalIsOpen] =
+    useState(false);
+  const [deleteQuestionId, setDeleteQuestionId] = useState("");
+
+  const [endRoomModalIsOpen, setEndRoomModalIsOpen] = useState(false);
 
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
   const { title, questions } = useRoom(roomId);
 
-  async function handleEndRoom() {
-    await database.ref(`rooms/${roomId}`).update({
-      closedAt: new Date(),
-    });
-
-    history.push("/");
+  function openDeleteQuestionModal(questionId: string) {
+    setDeleteQuestionId(questionId);
+    setDeleteQuestionModalIsOpen(true);
   }
 
-  async function handleDeleteQuestion(questionId: string) {
-    if (window.confirm("Tem certeza que deseja excluir essa pergunta?")) {
-      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
-    }
+  function closeDeleteQuestionModal() {
+    setDeleteQuestionModalIsOpen(false);
+  }
+
+  function openEndRoomModal() {
+    setEndRoomModalIsOpen(true);
+  }
+
+  function closeEndRoomModal() {
+    setEndRoomModalIsOpen(false);
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string) {
@@ -60,6 +70,27 @@ export function AdminRoom() {
 
   return (
     <Container>
+      <Modal
+        isOpen={deleteQuestionModalIsOpen}
+        onRequestClose={closeDeleteQuestionModal}
+        contentLabel="Deletar pergunta"
+        shouldCloseOnEsc
+      >
+        <DeleteQuestionModalContent
+          closeModal={closeDeleteQuestionModal}
+          questionId={deleteQuestionId}
+          roomId={roomId}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={endRoomModalIsOpen}
+        onRequestClose={closeEndRoomModal}
+        contentLabel="Deletar pergunta"
+        shouldCloseOnEsc
+      >
+        <EndRoomModalContent closeModal={closeEndRoomModal} roomId={roomId} />
+      </Modal>
       <header>
         <div className="content">
           <img
@@ -69,7 +100,7 @@ export function AdminRoom() {
 
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>
+            <Button isOutlined onClick={openEndRoomModal}>
               Encerrar sala
             </Button>
             <ToggleThemeButton />
@@ -114,7 +145,7 @@ export function AdminRoom() {
                 )}
                 <button
                   type="button"
-                  onClick={() => handleDeleteQuestion(question.id)}
+                  onClick={() => openDeleteQuestionModal(question.id)}
                 >
                   <img src={deleteImg} alt="Remover pergunta" />
                 </button>

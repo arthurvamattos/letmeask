@@ -1,5 +1,6 @@
 import { transparentize } from "polished";
 import styled from "styled-components";
+import ReactModal from "react-modal";
 
 export const Container = styled.div`
   header {
@@ -162,4 +163,17 @@ export const Container = styled.div`
       }
     }
   }
+`;
+
+export const Modal = styled(ReactModal)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: ${transparentize(0.04, "#29292E")};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

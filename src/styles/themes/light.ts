@@ -12,6 +12,7 @@ const theme = {
     highlight: "#F4F0FF",
     purple: "#835AFD",
     gray: "#737380",
+    gray_light: "#DBDCDD",
     pink: "#E559F9",
   },
 };

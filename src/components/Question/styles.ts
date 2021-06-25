@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { transparentize } from "polished";
 
-export const Container = styled.button`
+export const Container = styled.div`
   background: ${(props) => props.theme.colors.foreground};
   border-radius: 0.5rem;
   padding: 1.5rem;
