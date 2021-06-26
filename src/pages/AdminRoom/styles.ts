@@ -32,9 +32,14 @@ export const Container = styled.div`
         button {
           height: 2.5rem;
         }
+
+        > div {
+          display: flex;
+          align-items: center;
+        }
       }
 
-      @media (max-width: 35rem) {
+      @media (max-width: 46rem) {
         flex-direction: column;
         gap: 1.2rem;
 
@@ -42,7 +47,8 @@ export const Container = styled.div`
           flex-direction: column;
           gap: 0.5rem;
 
-          button:nth-child(3) {
+          div {
+            gap: 0.5rem;
             align-self: center;
           }
         }

@@ -9,6 +9,7 @@ import { RoomCode } from "../../components/RoomCode";
 import { Question } from "../../components/Question";
 import { Loading } from "../../components/Loading";
 import { ToggleThemeButton } from "../../components/ToggleThemeButton";
+import { SignOutButton } from "../../components/SignOutButton";
 
 import { useAuth } from "../../hooks/useAuth";
 import { database } from "../../services/firebase";
@@ -87,7 +88,11 @@ export function Room() {
           </Link>
           <div>
             <RoomCode code={roomId} />
-            <ToggleThemeButton />
+
+            <div>
+              <ToggleThemeButton />
+              <SignOutButton />
+            </div>
           </div>
         </div>
       </header>

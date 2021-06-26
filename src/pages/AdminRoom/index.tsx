@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 
@@ -12,6 +13,7 @@ import { RoomCode } from "../../components/RoomCode";
 import { Question } from "../../components/Question";
 import { Loading } from "../../components/Loading";
 import { ToggleThemeButton } from "../../components/ToggleThemeButton";
+import { SignOutButton } from "../../components/SignOutButton";
 
 import { useRoom } from "../../hooks/useRoom";
 import { database } from "../../services/firebase";
@@ -19,10 +21,8 @@ import { useTheme } from "../../hooks/useTheme";
 
 import { Container, Modal } from "./styles";
 import { NoQuestions } from "../../components/NoQuestions";
-import { useState } from "react";
 import { DeleteQuestionModalContent } from "../../components/DeleteQuestionModalContent";
 import { EndRoomModalContent } from "../../components/EndRoomModalContent";
-import { useEffect } from "react";
 
 type RoomParams = {
   id: string;
@@ -118,7 +118,10 @@ export function AdminRoom() {
             <Button isOutlined onClick={openEndRoomModal}>
               Encerrar sala
             </Button>
-            <ToggleThemeButton />
+            <div>
+              <ToggleThemeButton />
+              <SignOutButton />
+            </div>
           </div>
         </div>
       </header>

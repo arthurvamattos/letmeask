@@ -31,6 +31,12 @@ export const Container = styled.div`
         button {
           height: 2.5rem;
         }
+
+        > div {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
       }
       gap: 1.2rem;
 
