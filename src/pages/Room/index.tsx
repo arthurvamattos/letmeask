@@ -7,6 +7,7 @@ import logoDarkModeImg from "../../assets/images/logo-dark-mode.svg";
 import { Button } from "../../components/Button";
 import { RoomCode } from "../../components/RoomCode";
 import { Question } from "../../components/Question";
+import { Loading } from "../../components/Loading";
 import { ToggleThemeButton } from "../../components/ToggleThemeButton";
 
 import { useAuth } from "../../hooks/useAuth";
@@ -29,7 +30,7 @@ export function Room() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const { title, questions } = useRoom(roomId);
+  const { title, questions, loading } = useRoom(roomId);
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -74,6 +75,8 @@ export function Room() {
 
   return (
     <Container>
+      {loading && <Loading />}
+
       <header>
         <div className="content">
           <Link to="/">

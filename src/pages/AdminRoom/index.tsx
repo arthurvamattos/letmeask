@@ -10,6 +10,7 @@ import answerImg from "../../assets/images/answer.svg";
 import { Button } from "../../components/Button";
 import { RoomCode } from "../../components/RoomCode";
 import { Question } from "../../components/Question";
+import { Loading } from "../../components/Loading";
 import { ToggleThemeButton } from "../../components/ToggleThemeButton";
 
 import { useRoom } from "../../hooks/useRoom";
@@ -80,6 +81,7 @@ export function AdminRoom() {
 
   return (
     <Container>
+      {loading && <Loading />}
       <Toaster />
       <Modal
         isOpen={deleteQuestionModalIsOpen}
