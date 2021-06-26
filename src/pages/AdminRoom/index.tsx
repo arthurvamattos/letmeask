@@ -1,4 +1,5 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 import logoImg from "../../assets/images/logo.svg";
 import logoDarkModeImg from "../../assets/images/logo-dark-mode.svg";
@@ -20,6 +21,7 @@ import { NoQuestions } from "../../components/NoQuestions";
 import { useState } from "react";
 import { DeleteQuestionModalContent } from "../../components/DeleteQuestionModalContent";
 import { EndRoomModalContent } from "../../components/EndRoomModalContent";
+import { useEffect } from "react";
 
 type RoomParams = {
   id: string;
@@ -37,7 +39,15 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const { title, questions } = useRoom(roomId);
+  const { title, questions, isAdmin, loading } = useRoom(roomId);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!loading && !isAdmin) {
+      toast.error("Somente o admininstrador pode acessar esta página");
+      history.push("/");
+    }
+  }, [isAdmin, loading, history]);
 
   function openDeleteQuestionModal(questionId: string) {
     setDeleteQuestionId(questionId);
@@ -70,6 +80,7 @@ export function AdminRoom() {
 
   return (
     <Container>
+      <Toaster />
       <Modal
         isOpen={deleteQuestionModalIsOpen}
         onRequestClose={closeDeleteQuestionModal}

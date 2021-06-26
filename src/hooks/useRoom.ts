@@ -38,8 +38,11 @@ export function useRoom(roomId: string) {
   const { user } = useAuth();
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const roomRef = database.ref(`rooms/${roomId}`);
 
     roomRef.on("value", (room) => {
@@ -62,8 +65,13 @@ export function useRoom(roomId: string) {
         }
       );
 
+      if (databaseRoom.authorId === user?.id) {
+        setIsAdmin(true);
+      }
+
       setTitle(databaseRoom.title);
       setQuestions(parsedQuestions);
+      setLoading(false);
     });
 
     return () => {
@@ -71,5 +79,5 @@ export function useRoom(roomId: string) {
     };
   }, [roomId, user?.id]);
 
-  return { questions, title };
+  return { questions, title, isAdmin, loading };
 }
