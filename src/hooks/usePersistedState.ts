@@ -14,7 +14,10 @@ function usePersistedState<T>(key: string, initialState: T): Response<T> {
   });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(state));
+    localStorage.setItem(
+      `@letmeask-arthurvamattos:${key}`,
+      JSON.stringify(state)
+    );
   }, [key, state]);
 
   return [state, setState];
