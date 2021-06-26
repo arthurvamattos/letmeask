@@ -1,46 +1,41 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+<br>
+  <img src="https://user-images.githubusercontent.com/23246257/123498463-0b202e80-d5fe-11eb-9613-6e28b5a0add1.png" alt="letmeask" width="120">
+<br>
+<br>
+Letmeask
+</h1>
 
-## Available Scripts
+<p align="center">Project of Next Level Week Together - Q&A rooms</p>
 
-In the project directory, you can run:
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
+  </a>
+</p>
 
-### `yarn start`
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/23246257/123498465-0c515b80-d5fe-11eb-8b52-8ba860e59fa2.png" alt="overview" height="425">
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<hr />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
+This app features all the latest tools and practices in web development!
 
-### `yarn test`
+- ⚛️ **React Js** — A JavaScript library for building user interfaces
+- 🔥 **Firebase** — A Backend As A Service, which provides us with features such as authentication and realtime database
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## Getting started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone this repo using git clone `https://github.com/arthurvamattos/letmeask.git`
+2. Move yourself to the appropriate directory: `cd letmeask`
+3. Run `yarn` to install dependencies
+4. Create a `.env.local` file and add the yours Firebase SDK configs - see more on the [docs](https://firebase.google.com/docs/web/setup?hl=pt-br#with-npm_1)
+5. Run `yarn dev` to start the server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/licenses/MIT) page for details.
